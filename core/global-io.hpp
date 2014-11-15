@@ -29,18 +29,24 @@
 
 namespace nfd {
 
-/** \return the global io_service instance
+/** \return *nullptr (kept for interface compatibility)
  */
-boost::asio::io_service&
-getGlobalIoService();
+inline boost::asio::io_service&
+getGlobalIoService()
+{
+  return *static_cast<boost::asio::io_service*>(nullptr);
+}
 
 #ifdef WITH_TESTS
 /** \brief delete the global io_service instance
  *
  *  It will be recreated at the next invocation of getGlobalIoService.
  */
-void
-resetGlobalIoService();
+inline void
+resetGlobalIoService()
+{
+  // noop
+}
 #endif
 
 } // namespace nfd

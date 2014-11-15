@@ -24,41 +24,43 @@
  */
 
 #include "scheduler.hpp"
-#include "global-io.hpp"
 
-#include <boost/thread/tss.hpp>
+namespace ns3 {
+
+/// @cond include_hidden
+
+template<>
+struct EventMemberImplObjTraits<std::function<void()>> {
+  typedef std::function<void()> T;
+  static T&
+  GetReference(T& p)
+  {
+    return p;
+  }
+};
+
+/// @endcond
+
+} // namespace ns3
 
 namespace nfd {
 namespace scheduler {
 
-static boost::thread_specific_ptr<Scheduler> g_scheduler;
-
-Scheduler&
-getGlobalScheduler()
-{
-  if (g_scheduler.get() == nullptr) {
-    g_scheduler.reset(new Scheduler(getGlobalIoService()));
-  }
-
-  return *g_scheduler;
-}
-
 EventId
-schedule(const time::nanoseconds& after, const Scheduler::Event& event)
+schedule(const time::nanoseconds& after, const std::function<void()>& event)
 {
-  return getGlobalScheduler().scheduleEvent(after, event);
+  ns3::EventId id = ns3::Simulator::Schedule(ns3::NanoSeconds(after.count()),
+                                             &std::function<void()>::operator(), event);
+  return std::make_shared<ns3::EventId>(id);
 }
 
 void
 cancel(const EventId& eventId)
 {
-  getGlobalScheduler().cancelEvent(eventId);
-}
-
-void
-resetGlobalScheduler()
-{
-  g_scheduler.reset();
+  if (eventId != nullptr) {
+    ns3::Simulator::Remove(*eventId);
+    const_cast<EventId&>(eventId).reset();
+  }
 }
 
 ScopedEventId::ScopedEventId()
