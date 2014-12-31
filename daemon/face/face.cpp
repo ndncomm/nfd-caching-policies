@@ -37,6 +37,7 @@ Face::Face(const FaceUri& remoteUri, const FaceUri& localUri, bool isLocal, bool
   , m_persistency(ndn::nfd::FACE_PERSISTENCY_PERSISTENT)
   , m_isMultiAccess(isMultiAccess)
   , m_isFailed(false)
+  , m_metric(0)
 {
   onReceiveInterest.connect([this] (const ndn::Interest&) { ++m_counters.getNInInterests(); });
   onReceiveData    .connect([this] (const ndn::Data&)     { ++m_counters.getNInDatas(); });
