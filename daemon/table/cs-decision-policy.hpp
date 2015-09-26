@@ -1,4 +1,5 @@
 #include "common.hpp"
+#include <string>
 
 #ifndef NFD_DAEMON_TABLE_CS_DECISION_POLICY_HPP
 #define NFD_DAEMON_TABLE_CS_DECISION_POLICY_HPP
@@ -21,9 +22,14 @@ public:
    */
   virtual bool admitPacket(const Data & data) = 0;
 
-  std::string getName(){
-    return "Name!";
+  const
+  std::string& getName()
+  {
+    return m_policyName;
   }
+
+protected:
+  std::string m_policyName;
 
 };
 

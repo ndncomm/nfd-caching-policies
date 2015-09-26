@@ -18,6 +18,7 @@ class LcdDecisionPolicy : public DecisionPolicy
 public:
   LcdDecisionPolicy()
   {
+    m_policyName = std::string("Lcd");
   };
 
   virtual bool admitPacket(const Data & data);

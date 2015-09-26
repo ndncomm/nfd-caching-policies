@@ -14,6 +14,7 @@ class ProducerClosestDecisionPolicy : public DecisionPolicy
 public:
   ProducerClosestDecisionPolicy()
   {
+    m_policyName = std::string("ProducerClosest");
   };
 
   virtual bool admitPacket(const Data & data);

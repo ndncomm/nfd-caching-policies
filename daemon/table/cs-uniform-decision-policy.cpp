@@ -16,6 +16,8 @@ UniformDecisionPolicy(int acceptRatio)
   else {
     m_acceptRatio = 100;
   }
+
+  m_policyName = std::string("Uniform");
 };
 
 
