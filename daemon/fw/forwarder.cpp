@@ -48,9 +48,12 @@ Forwarder::Forwarder()
   , m_measurements(m_nameTree)
   , m_strategyChoice(m_nameTree, fw::makeDefaultStrategy(*this))
   , m_csFace(make_shared<NullFace>(FaceUri("contentstore://")))
+  , m_decisionPolicy(new nfd::cs::UniformDecisionPolicy)
 {
   fw::installStrategies(*this);
   getFaceTable().addReserved(m_csFace, FACEID_CONTENT_STORE);
+
+  // set which decision policy to use
 }
 
 Forwarder::~Forwarder()
@@ -319,10 +322,13 @@ Forwarder::onIncomingData(Face& inFace, const Data& data)
   dataCopyWithoutPacket->removeTag<ns3::ndn::Ns3PacketTag>();
 
   // CS insert
-  if (m_csFromNdnSim == nullptr)
-    m_cs.insert(*dataCopyWithoutPacket);
-  else
-    m_csFromNdnSim->Add(dataCopyWithoutPacket);
+  if (m_decisionPolicy->admitPacket(data)) {
+    if (m_csFromNdnSim == nullptr)
+      m_cs.insert(*dataCopyWithoutPacket);
+    else
+      m_csFromNdnSim->Add(dataCopyWithoutPacket);
+  }
+
 
   std::set<shared_ptr<Face> > pendingDownstreams;
   // foreach PitEntry

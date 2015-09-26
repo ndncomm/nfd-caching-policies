@@ -39,6 +39,8 @@
 
 #include "ns3/ndnSIM/model/cs/ndn-content-store.hpp"
 
+#include "table/cs-uniform-decision-policy.hpp"
+
 namespace nfd {
 
 namespace fw {
@@ -229,6 +231,7 @@ private:
   StrategyChoice m_strategyChoice;
   DeadNonceList  m_deadNonceList;
   shared_ptr<NullFace> m_csFace;
+  unique_ptr<nfd::cs::DecisionPolicy> m_decisionPolicy;
 
   ns3::Ptr<ns3::ndn::ContentStore> m_csFromNdnSim;
 
