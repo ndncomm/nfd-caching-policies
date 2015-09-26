@@ -11,7 +11,7 @@ class UniformDecisionPolicy : public DecisionPolicy
 {
 public:
   /**
-   * /brief Makes a caching decision based on a fixed uniform random probability.
+   * \brief Makes a caching decision based on a fixed uniform random probability.
    *
    * The parameter acceptRatio specifies the probability in %. It should be an Integer between 0 and 100.
    *
