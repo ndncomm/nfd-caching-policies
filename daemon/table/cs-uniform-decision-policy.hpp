@@ -10,8 +10,11 @@ namespace cs{
 class UniformDecisionPolicy : public DecisionPolicy
 {
 public:
-  /** /brief acceptRatio shoube a an integer
-      between 0 to 100
+  /**
+   * /brief Makes a caching decision based on a fixed uniform random probability.
+   *
+   * The parameter acceptRatio specifies the probability in %. It should be an Integer between 0 and 100.
+   *
    */
   UniformDecisionPolicy(int acceptRatio);
 

@@ -8,7 +8,6 @@ namespace cs{
 
 /**
  * \brief Represents the CS cache decision policy.
- *
  */
 class DecisionPolicy
 {
