@@ -20,6 +20,10 @@ public:
 
   virtual bool admitPacket(const Data & data);
 
+  int getAcceptRatio(){
+    return m_acceptRatio;
+  }
+
 private:
   bool getRand();
 
