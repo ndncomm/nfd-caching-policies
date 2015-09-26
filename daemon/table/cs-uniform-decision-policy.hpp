@@ -1,8 +1,5 @@
-
-
 #include "common.hpp"
 #include "cs-decision-policy.hpp"
-#include <cstdlib>
 
 #ifndef NFD_DAEMON_TABLE_CS_UNIFORM_DECISION_POLICY_HPP
 #define NFD_DAEMON_TABLE_CS_UNIFORM_DECISION_POLICY_HPP
@@ -13,26 +10,18 @@ namespace cs{
 class UniformDecisionPolicy : public DecisionPolicy
 {
 public:
-  UniformDecisionPolicy()
-  {
-    std::srand(std::time(NULL));
-  };
+  /** /brief acceptRatio shoube a an integer
+      between 0 to 100
+   */
+  UniformDecisionPolicy(int acceptRatio);
 
+  virtual bool admitPacket(const Data & data);
 
-  virtual bool
-  admitPacket(const Data & data)
-  {
-    return getRand();
-  }
 private:
-  bool
-  getRand()
-  {
-    if (rand() % 100 >= 90) {
-      return false;
-    }
-    return true;
-  }
+  bool getRand();
+
+private:
+  int m_acceptRatio;
 };
 
 
