@@ -39,6 +39,7 @@
 
 #include "ns3/ndnSIM/model/cs/ndn-content-store.hpp"
 
+#include "table/cs-decision-policy.hpp"
 #include "table/cs-uniform-decision-policy.hpp"
 
 namespace nfd {
@@ -110,9 +111,17 @@ public: // forwarding entrypoints and tables
   DeadNonceList&
   getDeadNonceList();
 
+  shared_ptr<cs::DecisionPolicy>
+  getDecisionPolicy();
+
 public: // allow enabling ndnSIM content store (will be removed in the future)
   void
   setCsFromNdnSim(ns3::Ptr<ns3::ndn::ContentStore> cs);
+
+  void
+  setDecisionPolicy(shared_ptr<cs::DecisionPolicy> decisionPolicy);
+
+
 
 public:
   /** \brief trigger before PIT entry is satisfied
@@ -231,7 +240,7 @@ private:
   StrategyChoice m_strategyChoice;
   DeadNonceList  m_deadNonceList;
   shared_ptr<NullFace> m_csFace;
-  unique_ptr<nfd::cs::DecisionPolicy> m_decisionPolicy;
+  shared_ptr<nfd::cs::DecisionPolicy> m_decisionPolicy;
 
   ns3::Ptr<ns3::ndn::ContentStore> m_csFromNdnSim;
 
@@ -319,10 +328,21 @@ Forwarder::getDeadNonceList()
   return m_deadNonceList;
 }
 
+inline shared_ptr<cs::DecisionPolicy>
+  Forwarder::getDecisionPolicy(){
+    return m_decisionPolicy;
+}
+
+
 inline void
 Forwarder::setCsFromNdnSim(ns3::Ptr<ns3::ndn::ContentStore> cs)
 {
   m_csFromNdnSim = cs;
+}
+
+inline void
+Forwarder::setDecisionPolicy(shared_ptr<cs::DecisionPolicy> decisionPolicy){
+  m_decisionPolicy = decisionPolicy;
 }
 
 #ifdef WITH_TESTS

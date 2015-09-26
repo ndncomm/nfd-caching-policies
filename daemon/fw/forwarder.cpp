@@ -48,7 +48,7 @@ Forwarder::Forwarder()
   , m_measurements(m_nameTree)
   , m_strategyChoice(m_nameTree, fw::makeDefaultStrategy(*this))
   , m_csFace(make_shared<NullFace>(FaceUri("contentstore://")))
-  , m_decisionPolicy(new nfd::cs::UniformDecisionPolicy(90))
+  , m_decisionPolicy(new nfd::cs::UniformDecisionPolicy(100))
 {
   fw::installStrategies(*this);
   getFaceTable().addReserved(m_csFace, FACEID_CONTENT_STORE);

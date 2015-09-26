@@ -20,6 +20,11 @@ public:
    * Returns true if the packet should be cached, false otherwise.
    */
   virtual bool admitPacket(const Data & data) = 0;
+
+  std::string getName(){
+    return "Name!";
+  }
+
 };
 
 } // namespace cs
