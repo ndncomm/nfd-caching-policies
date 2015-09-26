@@ -5,10 +5,17 @@ namespace nfd {
 namespace cs{
 
 UniformDecisionPolicy::
-UniformDecisionPolicy(int acceptRatio):
-  m_acceptRatio(acceptRatio)
+UniformDecisionPolicy(int acceptRatio)
 {
   std::srand(std::time(NULL));
+
+  // Check if accept ratio is in the correct range. If it's not: Set it to 100%.
+  if (acceptRatio >= 0 && acceptRatio <= 100){
+    m_acceptRatio = acceptRatio;
+  }
+  else {
+    m_acceptRatio = 100;
+  }
 };
 
 
