@@ -8,6 +8,11 @@
 namespace nfd {
 namespace cs{
 
+/**
+ * \brief A cache decision policy based on Leave a Copy Down (LCD).
+ *
+ * Only caches content one hop down from the sender (either content repository or cache).
+ */
 class LcdDecisionPolicy : public DecisionPolicy
 {
 public:

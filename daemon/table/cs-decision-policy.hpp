@@ -14,7 +14,6 @@ class DecisionPolicy
 public:
   DecisionPolicy() {};
 
-
   /**
    * \brief Decides if to cache an incoming data packet.
    *
