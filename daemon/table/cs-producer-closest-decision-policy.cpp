@@ -30,6 +30,10 @@ ProducerClosestDecisionPolicy::admitPacket(const Data & data)
 bool
 ProducerClosestDecisionPolicy::randAccept(int hopCount)
 {
+  if (hopCount == 0) {
+    return true;
+  }
+
   double acceptRatio = 1 / pow(2.0, double(hopCount - 1));
 
   if (m_ranVar.GetValue(double(0), double(1.0)) <= acceptRatio) {
