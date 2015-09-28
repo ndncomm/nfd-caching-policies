@@ -36,7 +36,7 @@ ProducerClosestDecisionPolicy::randAccept(int hopCount)
 
   double acceptRatio = 1 / pow(2.0, double(hopCount - 1));
 
-  if (m_ranVar.GetValue(double(0), double(1.0)) <= acceptRatio) {
+  if (m_ranVar->GetValue(double(0), double(1.0)) <= acceptRatio) {
     return true;
   }
   return false;

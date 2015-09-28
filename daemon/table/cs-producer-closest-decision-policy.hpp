@@ -15,6 +15,7 @@ public:
   ProducerClosestDecisionPolicy()
   {
     m_policyName = std::string("ProducerClosest");
+    m_ranVar = ns3::CreateObject<ns3::UniformRandomVariable>();
   };
 
   virtual bool admitPacket(const Data & data);
@@ -23,7 +24,7 @@ private:
   bool randAccept(int hopCount);
 
 private:
-  ns3::UniformRandomVariable m_ranVar;
+  ns3::Ptr<ns3::UniformRandomVariable>  m_ranVar;
 };
 
 
